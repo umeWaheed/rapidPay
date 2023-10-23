@@ -1,24 +1,32 @@
-# README
+# RapidPay
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A tool that lets you create cards and update balances by making transactions.
 
-Things you may want to cover:
+# Requirements
 
-* Ruby version
+* Ruby version: 3.1.2
+* Rails version: 7.0.8
+* Sidekiq
+* Whenever (for cron job)
 
-* System dependencies
+# Setup
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Run the following commands to setup
+1. Clone the repo
+2. Install required gems 
+```
+bundle install
+```
+3. Run migrations and seeds
+```
+rails db:migrate
+rails db:seed
+```
+4. Run sidekiq
+```
+bundle exec sidekiq
+```
+6. Add cronjob
+```
+whenever --update-crontab
+```
