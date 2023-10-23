@@ -1,0 +1,17 @@
+<h1>View Transactions</h1>
+<table>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Amount</td>
+      <td>Fee</td>
+    </tr>
+  </thead>
+  <% @transactions.each_with_index do |transaction, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= transaction.amount %></td>
+      <td><%= transaction.fee.round(2) %></td>
+    </tr>
+  <% end %>
+</table>

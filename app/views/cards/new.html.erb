@@ -1,0 +1,35 @@
+<% if @card.errors.any? %>
+  <% @card.errors.full_messages.each do |message| %>
+  <h4><%= message %></h4>
+  <%end%>
+<%end%>
+<br/>
+
+<%= form_with model: @card, url: cards_path, method: :post, local: true do |f| %>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :number %><br>
+    <%= f.number_field :number, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :cvv %><br>
+    <%= f.number_field :cvv, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :expiry %><br>
+    <%= f.month_field :expiry, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :initial_balance %><br>
+    <%= f.number_field :balance %>
+  </div>
+
+  <%= f.submit :submit %>
+<% end %>

@@ -70,3 +70,9 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+gem 'active_model_serializers'
+gem 'figaro'
+gem 'whenever', require: false
+gem 'sidekiq'
+
