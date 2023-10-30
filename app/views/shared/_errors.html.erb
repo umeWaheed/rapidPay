@@ -1,0 +1,21 @@
+<%= tag.div id: dom_id(object) do %>
+  <% attributes ||= [] %>
+  <% attributes.select! { |attribute| object.errors[attribute].any? } %>
+  <% if object.errors[:base].any? || object.errors.present? || attributes.any? %>
+    <div class="alert alert-danger" role="alert">
+      <% if object.errors[:base].any? || attributes.any? %>
+        <%= object.errors[:base].join(' ') %>
+        <% attributes.each do |attribute| %>
+        <%= resource.class.human_attribute_name(attribute) %> <%= resource.errors[attribute].to_sentence %>.
+        <% end %>
+      <% else %>
+        <p class="mb-0 fw-bold">Please correct the errors below.</p>
+        <ul class="mb-0">
+        <% object.errors.full_messages.each do |message| %>
+            <li class="mt-1 mb-0"><%= message.to_s %></li>
+        <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

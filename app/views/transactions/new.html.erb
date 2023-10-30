@@ -1,11 +1,6 @@
-<% if @transaction.errors.any? %>
-  <% @transaction.errors.full_messages.each do |message| %>
-  <h4><%= message %></h4>
-  <%end%>
-<%end%>
-<br/>
+<%= form_with model: @transaction, url: card_transactions_path(@card.id), method: :post do |f| %>
+<%= render 'shared/errors', object: @transaction %>
 
-<%= form_with model: @transaction, url: card_transactions_path(@card.id), method: :post, local: true do |f| %>
   <div>
     <%= f.label :amount %><br>
     <%= f.number_field :amount, required: true %>

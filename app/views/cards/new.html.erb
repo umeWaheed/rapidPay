@@ -1,11 +1,5 @@
-<% if @card.errors.any? %>
-  <% @card.errors.full_messages.each do |message| %>
-  <h4><%= message %></h4>
-  <%end%>
-<%end%>
-<br/>
-
 <%= form_with model: @card, url: cards_path, method: :post, local: true do |f| %>
+  <%= render 'shared/errors', object: @card %>
   <div>
     <%= f.label :name %><br>
     <%= f.text_field :name, required: true %>
