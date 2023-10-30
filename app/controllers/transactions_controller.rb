@@ -23,9 +23,11 @@ class TransactionsController < ApplicationController
       if @transaction.errors.any?
         format.html { render :new }
         format.json { render json: @transaction }
+        format.turbo_stream { render_turbo_stream }
       else
         format.html { redirect_to card_transactions_path(@card.id) }
         format.json { render json: @transaction }
+        format.turbo_stream { redirect_to card_transactions_path(@card.id) }
       end
     end
   end
@@ -38,5 +40,11 @@ class TransactionsController < ApplicationController
 
   def set_card
     @card = Card.find(params[:card_id])
+  end
+
+  def render_turbo_stream
+    render turbo_stream: [
+      turbo_stream.replace(:new_transaction, partial: "shared/errors", locals: { object: @transaction })
+    ]
   end
 end

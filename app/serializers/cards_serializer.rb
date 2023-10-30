@@ -6,6 +6,6 @@ class CardsSerializer < ActiveModel::Serializer
   end
 
   def expiry
-    "#{expiry_month}/#{expiry_year}"
+    "#{object.expiry_month}/#{object.expiry_year}"
   end
 end

@@ -18,14 +18,16 @@ class CardsController < ApplicationController
   # POST /cards
   def create
     year, month = permitted_params["expiry"].split("-")
-    card = Card.create(permitted_params.except("expiry")
+    @card = Card.create(permitted_params.except("expiry")
                .merge({ expiry_year: year, expiry_month: month }))
     respond_to do |format|
-      if card.errors.any?
+      if @card.errors.any?
         format.html {redirect_to new_card_path }
+        format.turbo_stream { render_turbo_stream }
       else
         format.html {redirect_to cards_path }
-        format.json { render json: card}
+        format.json { render json: @card}
+        format.turbo_stream { render_turbo_stream }
       end
     end
   end
@@ -59,5 +61,11 @@ class CardsController < ApplicationController
 
   def set_card
     @card = Card.find(params[:id])
+  end
+
+  def render_turbo_stream
+    render turbo_stream: [
+      turbo_stream.replace(:new_card, partial: "shared/errors", locals: { object: @card })
+    ]
   end
 end
